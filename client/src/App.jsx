@@ -3,6 +3,7 @@ import { useState } from "react";
 
 function App(){
   const [file,setFile]=useState(null);
+  const[text,setText]=useState("");
 
   const handleUpload=async()=>{
     const formData=new FormData();
@@ -10,13 +11,19 @@ function App(){
 
     const response=await axios.post("http://localhost:5000/api/upload",formData);
 
-    console.log(response.data);
+    setText(response.data.text);
   }
 
   return(
     <div>
         <h1>PDF Insight</h1>
-
+        <p>{text &&(
+          <textarea
+          value={text}
+          rows={15}
+          cols={80}          readOnly
+          />
+        )}</p>
         <input
         type="file"
         accept=".pdf"
