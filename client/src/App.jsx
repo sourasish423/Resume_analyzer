@@ -16,7 +16,7 @@ function App() {
     try {
       const formData = new FormData();
       formData.append("pdf", file);
-      const response = await axios.post("http://localhost:5000/api/upload", formData);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/upload`, formData);
       setText(response.data.text);
       setSummary(response.data.summary);
     } catch (err) {
@@ -31,7 +31,7 @@ function App() {
     if (!question || !text || asking) return;
     setAsking(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/upload/ask", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/upload/ask`, {
         question: question,
         text: text,
       });
